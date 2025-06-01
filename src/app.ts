@@ -25,11 +25,8 @@ const toDirectory = (path: string) => {
 
 app.get("/checkDirectory/:path(*)", (req, res) => {
   const path = req.params.path;
-  if (path == "") {
-    res.send(false);
-    return;
-  }
-  res.send(toDirectory(path));
+  if (path == "") res.send(false);
+  else res.send(toDirectory(path));
 });
 
 app.listen(port, () => {
