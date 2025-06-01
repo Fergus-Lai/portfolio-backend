@@ -12,27 +12,24 @@ const port = process.env.PORT || 3000;
 
 app.use(cors(corsOptions));
 
+const toDirectory = (path: string) => {
+  path = path.replace("~", "");
+  const directories = path.split("/");
+  let currentDirectory = directoryTree;
+  for (const directory of directories) {
+    if (!(directory in currentDirectory)) return false;
+    currentDirectory = currentDirectory[directory];
+  }
+  return true;
+};
+
 app.get("/checkDirectory/:path(*)", (req, res) => {
   const path = req.params.path;
   if (path == "") {
     res.send(false);
     return;
   }
-  if (path == "~") {
-    res.send(true);
-    return;
-  }
-  const directories = path.split("/");
-  let currentDirectory = directoryTree;
-  directories.forEach((directory) => {
-    if (!(directory in currentDirectory)) {
-      res.send(false);
-      return;
-    }
-    currentDirectory = currentDirectory[directory];
-  });
-  res.send(true);
-  return;
+  res.send(toDirectory(path));
 });
 
 app.listen(port, () => {
