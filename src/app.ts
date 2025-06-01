@@ -17,16 +17,24 @@ const toDirectory = (path: string) => {
   const directories = path.split("/");
   let currentDirectory = directoryTree;
   for (const directory of directories) {
-    if (!(directory in currentDirectory)) return false;
+    if (!(directory in currentDirectory))
+      throw new RangeError("Directory Not Found");
     currentDirectory = currentDirectory[directory];
   }
-  return true;
+  return currentDirectory;
 };
 
 app.get("/checkDirectory/:path(*)", (req, res) => {
   const path = req.params.path;
   if (path == "") res.send(false);
-  else res.send(toDirectory(path));
+  else {
+    try {
+      toDirectory(path);
+      res.send(true);
+    } catch (error) {
+      res.send(false);
+    }
+  }
 });
 
 app.listen(port, () => {

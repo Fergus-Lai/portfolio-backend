@@ -1,4 +1,6 @@
-const projects = {};
+const projects = {
+  file: ["UltimateTicTacToe.md"],
+};
 
 const experience = {};
 
@@ -8,4 +10,5 @@ export const directoryTree = {
   projects: projects,
   experience: experience,
   comment: comment,
+  file: {},
 };
