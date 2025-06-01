@@ -19,5 +19,5 @@ export const directoryTree = {
     experience: experience,
     comment: comment,
   },
-  file: {},
+  file: [],
 };
