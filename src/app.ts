@@ -14,12 +14,12 @@ app.use(cors(corsOptions));
 
 const toDirectory = (path: string) => {
   path = path.replace("~", "");
-  const directories = path.split("/");
+  const directories = path.split("/").filter((word) => word.length > 0);
   let currentDirectory = directoryTree;
   for (const directory of directories) {
-    if (!(directory in currentDirectory))
+    if (!(directory in currentDirectory.directory))
       throw new RangeError("Directory Not Found");
-    currentDirectory = currentDirectory[directory];
+    currentDirectory = currentDirectory.directory[directory];
   }
   return currentDirectory;
 };
@@ -33,6 +33,23 @@ app.get("/checkDirectory/:path(*)", (req, res) => {
       res.send(true);
     } catch (error) {
       res.send(false);
+    }
+  }
+});
+
+app.get("/listDirectory/:path(*)", (req, res) => {
+  const path = req.params.path;
+  if (path == "") res.send(false);
+  else {
+    try {
+      const directory = toDirectory(path);
+      const result = {
+        directory: Object.keys(directory.directory),
+        file: directory.file,
+      };
+      res.json(result);
+    } catch (error) {
+      res.status(404).send("Directory not found");
     }
   }
 });
