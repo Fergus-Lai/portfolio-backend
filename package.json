@@ -4,6 +4,8 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
+    "build": "set NODE_ENV=production && tsc",
+    "start": "set NODE_ENV=production && node dist/server.js",
     "dev": "nodemon src/app.ts"
   },
   "keywords": [],
