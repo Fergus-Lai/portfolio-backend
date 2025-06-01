@@ -3,7 +3,8 @@ import { directoryTree } from "./data";
 import cors from "cors";
 
 const corsOptions = {
-  origin: process.env.NODE_ENV == "production" ? "https://fergus-lai.dev" : "*",
+  origin:
+    process.env.NODE_ENV == "production" ? "https://www.fergus-lai.dev" : "*",
   methods: ["GET", "POST"],
 };
 
