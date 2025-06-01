@@ -26,13 +26,13 @@ const toDirectory = (path: string) => {
 
 app.get("/checkDirectory/:path(*)", (req, res) => {
   const path = req.params.path;
-  if (path == "") res.send(false);
+  if (path == "") res.json({ result: false });
   else {
     try {
       toDirectory(path);
-      res.send(true);
+      res.json({ result: true });
     } catch (error) {
-      res.send(false);
+      res.json({ result: false });
     }
   }
 });
