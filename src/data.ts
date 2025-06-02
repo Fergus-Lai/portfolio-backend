@@ -5,7 +5,7 @@ const projects = {
 
 const experience = {
   directory: {},
-  file: ["contempointern.md"],
+  file: ["contempointern.md", "contempoparttime.md"],
 };
 
 const comment = {
