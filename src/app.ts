@@ -40,7 +40,7 @@ app.get("/checkDirectory/:path(*)", (req, res) => {
 
 app.get("/listDirectory/:path(*)", (req, res) => {
   const path = req.params.path;
-  if (path == "") res.send(false);
+  if (path == "") res.status(404).send("Directory not found");
   else {
     try {
       const directory = toDirectory(path);
