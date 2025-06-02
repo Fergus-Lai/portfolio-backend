@@ -8,6 +8,8 @@ Duration: Sep 2024 - June 2025
 
 Tech Stack: Python, Excel, Tkinter, Pandas, Pymupdf, OpenCV
 
+## Description
+
 Continue development on internal tooling developed during my internship
 
 Extending the software to be deployed to 11 teams.
