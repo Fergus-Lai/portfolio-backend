@@ -63,7 +63,7 @@ app.get("/file/:path(*)", (req, res) => {
   else {
     try {
       const directoryPath = inputPath.split("/");
-      const fileName = directoryPath.pop();
+      const fileName = directoryPath.pop().toLowerCase();
       const directory = toDirectory(directoryPath.join("/"));
       if (!directory.file.includes(fileName))
         throw ReferenceError("File Not Found");

@@ -1,6 +1,6 @@
 const projects = {
   directory: {},
-  file: ["UltimateTicTacToe.md"],
+  file: ["ultimatetictactoe.md"],
 };
 
 const experience = {
