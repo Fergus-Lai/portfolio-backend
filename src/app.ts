@@ -1,6 +1,8 @@
 import express from "express";
 import { directoryTree } from "./data";
 import cors from "cors";
+import fs from "fs";
+import path from "path";
 
 const corsOptions = {
   origin:
@@ -51,6 +53,37 @@ app.get("/listDirectory/:path(*)", (req, res) => {
       res.json(result);
     } catch (error) {
       res.status(404).send("Directory not found");
+    }
+  }
+});
+
+app.get("/file/:path(*)", (req, res) => {
+  const inputPath = req.params.path;
+  if (inputPath == "") res.status(404).send("Directory not found");
+  else {
+    try {
+      const directoryPath = inputPath.split("/");
+      const fileName = directoryPath.pop();
+      const directory = toDirectory(directoryPath.join("/"));
+      if (!directory.file.includes(fileName))
+        throw ReferenceError("File Not Found");
+      const filePath = path.join(__dirname, "data", fileName);
+      fs.readFile(filePath, "utf8", (err, data) => {
+        if (err) {
+          return res.status(500).send("Error reading file");
+        }
+        res.type("text/markdown"); // Set content type as markdown
+        res.send(data);
+      });
+    } catch (error) {
+      if (error instanceof RangeError && error.message == "Directory Not Found")
+        res.status(404).send("Directory not found");
+      else if (
+        error instanceof ReferenceError &&
+        error.message == "File Not Found"
+      )
+        res.status(404).send("File Not Found");
+      else res.status(502).send("Unknown error occurred");
     }
   }
 });
