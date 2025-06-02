@@ -1,4 +1,15 @@
-# AAA
+# Ultimate Tic Tac Toe
 
-sads
-https://chatgpt.com/c/683cf0b9-9b60-8001-9411-6a68e02b5b35
+Site: https://utt.fergus-lai.dev/
+Frontend Repo: https://github.com/Fergus-Lai/ultimate-tic-tac-toe-frontend
+Backend Repo: https://github.com/Fergus-Lai/ultimate-tic-tac-toe-backend
+
+Tech Stack: Node.js, Express, Socket.io, React, Vite, TypeScript, TailWindCSS
+
+React Implementation of the Ultimate Tic Tac Toe Game
+
+Implement multiplayer using WebSocket with Socket.io
+
+Backend Deployed on Render
+
+Frontend Deployed on Vercel
