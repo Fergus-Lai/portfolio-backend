@@ -1,7 +1,6 @@
 import express from "express";
 import { directoryTree } from "./data";
 import cors from "cors";
-import serverless from "serverless-http";
 
 const corsOptions = {
   origin:
@@ -10,6 +9,7 @@ const corsOptions = {
 };
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(cors(corsOptions));
 
@@ -55,4 +55,6 @@ app.get("/listDirectory/:path(*)", (req, res) => {
   }
 });
 
-module.exports.handler = serverless(app);
+app.listen(port, () => {
+  return console.log(`Express is listening at http://localhost:${port}`);
+});
