@@ -57,7 +57,7 @@ app.get("/listDirectory/:path(*)", (req, res) => {
   }
 });
 
-app.get("/file/:path(*)", (req, res) => {
+app.get("/download/:path(*)", (req, res) => {
   const inputPath = req.params.path;
   if (inputPath == "") res.status(404).send("Directory not found");
   else {
@@ -68,12 +68,11 @@ app.get("/file/:path(*)", (req, res) => {
       if (!directory.file.includes(fileName))
         throw ReferenceError("File Not Found");
       const filePath = path.join(__dirname, "data", fileName);
-      fs.readFile(filePath, "utf8", (err, data) => {
+      res.download(filePath, fileName, (err) => {
         if (err) {
-          return res.status(500).send("Error reading file");
+          console.error("Download error:", err);
+          res.status(500).send("Could not download the file.");
         }
-        res.type("text/markdown"); // Set content type as markdown
-        res.send(data);
       });
     } catch (error) {
       if (error instanceof RangeError && error.message == "Directory Not Found")
