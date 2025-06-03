@@ -8,8 +8,10 @@ Tech Stack: Node.js, Express, React, TypeScript, TailWindCSS
 
 The site you are on right now
 
-Emulate a linux terminal experience and display my portfolio
+Inspired by Linux Terminal
 
-Frontend deployed on vercecl
+User access information via Linux style command
 
-Backend deployed on render
+Frontend deployed on Vercel
+
+Backend deployed on Render

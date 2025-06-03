@@ -8,7 +8,7 @@ Tech Stack: Node.js, Express, Socket.io, React, Vite, TypeScript, TailWindCSS
 
 React Implementation of the Ultimate Tic Tac Toe Game
 
-Implement multiplayer using WebSocket with Socket.io
+Implemented multiplayer using WebSocket with Socket.io
 
 Backend Deployed on Render
 
