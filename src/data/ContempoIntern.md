@@ -10,6 +10,6 @@ Tech Stack: Python, Excel, Tkinter, Pandas, Pymupdf, OpenCV
 
 ## Description
 
-Tasked to develop internal tooling for merchandising team
+Tasked to design and develop internal tooling for merchandising team
 
 Automated data validation between purchasing order pdf file and spreadsheet
