@@ -3,6 +3,8 @@ import { directoryTree } from "./data";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
+import { db } from "./db/db";
+import { messages } from "./db/schema/message";
 
 const corsOptions = {
   origin:
@@ -14,6 +16,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
 const toDirectory = (inputPath: string) => {
   inputPath = inputPath.replace("~", "");
@@ -115,6 +118,37 @@ app.get("/download/:path(*)", (req, res) => {
         res.status(404).send("File Not Found");
       else res.status(502).send("Unknown error occurred");
     }
+  }
+});
+
+app.post("/contact", async (req, res) => {
+  const { title, inputName, email, message } = req.body;
+  if (!title) {
+    res.status(400).send("Title Missing");
+    return;
+  }
+  if (!inputName) {
+    res.status(400).send("Input Name Missing");
+    return;
+  }
+  if (!email) {
+    res.status(400).send("Email Missing");
+    return;
+  }
+  if (!message) {
+    res.status(400).send("Message Missing");
+    return;
+  }
+  try {
+    await db.insert(messages).values({
+      name: inputName,
+      title: title,
+      email: email,
+      message: message,
+    });
+    res.status(200).send("Saved Message");
+  } catch (error) {
+    res.status(500).send("Unknown error occurred");
   }
 });
 
