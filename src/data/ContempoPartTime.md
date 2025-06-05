@@ -10,8 +10,8 @@ Tech Stack: Python, Excel, Tkinter, Pandas, Pymupdf, OpenCV
 
 ## Description
 
-Continue development on internal tooling developed during my internship
+Continued development on internal tooling developed during my internship
 
-Extending the software to be deployed to 11 teams.
+Extended the software to be deployed to 11 teams.
 
-Developed internal tooling to compare the form and photo of 2 version of a PDF
+Designed and Developed internal tooling to compare the form and photo of 2 version of a PDF
