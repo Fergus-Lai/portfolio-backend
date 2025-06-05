@@ -4,7 +4,7 @@ Site: https://utt.fergus-lai.dev/
 Frontend Repo: https://github.com/Fergus-Lai/ultimate-tic-tac-toe-frontend
 Backend Repo: https://github.com/Fergus-Lai/ultimate-tic-tac-toe-backend
 
-Tech Stack: Node.js, Express, Socket.io, React, Vite, TypeScript, TailWindCSS
+Tech Stack: React, TailWindCSS, Node.js, Express, Socket.io, TypeScript
 
 React Implementation of the Ultimate Tic Tac Toe Game
 

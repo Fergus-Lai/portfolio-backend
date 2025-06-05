@@ -4,7 +4,7 @@ Site: https://www.fergus-lai.dev/
 Frontend Repo: https://github.com/Fergus-Lai/portfolio-frontend
 Backend Repo: https://github.com/Fergus-Lai/portfolio-backend
 
-Tech Stack: Node.js, Express, React, TypeScript, TailWindCSS
+Tech Stack: React, TailWindCSS, Node.js, Express, TypeScript
 
 The site you are on right now
 
