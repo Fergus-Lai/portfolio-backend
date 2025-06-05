@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import { db } from "./db/db";
 import { messages } from "./db/schema/message";
+import rateLimit from "express-rate-limit";
 
 const corsOptions = {
   origin:
@@ -12,11 +13,19 @@ const corsOptions = {
   methods: ["GET", "POST"],
 };
 
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 15 minutes
+  max: 10, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  message: "Too many requests from this IP, please try again after 15 minutes",
+});
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+app.use("/contact", limiter);
 
 const toDirectory = (inputPath: string) => {
   inputPath = inputPath.replace("~", "");
