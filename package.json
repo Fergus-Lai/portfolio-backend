@@ -4,10 +4,11 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "build": "set NODE_ENV=production && tsc",
-    "start": "set NODE_ENV=production && node dist/src/app.js",
+    "build": "set NODE_ENV=production && tsc && pnpm run copy",
+    "start": "set NODE_ENV=production && node dist/src/app.js ",
     "dev": "nodemon src/app.ts",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "copy": "cpx \"src/data/**/*\" dist/src/data"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/express": "4.17.1",
     "@types/pg": "^8.15.4",
+    "cpx": "^1.5.0",
     "drizzle-kit": "^0.31.1",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
