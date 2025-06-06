@@ -96,12 +96,11 @@ app.get("/file/:path(*)", (req, res) => {
       const directory = toDirectory(directoryPath.join("/"));
       if (!directory.file.includes(fileName))
         throw ReferenceError("File Not Found");
-      const filePath = path.join(__dirname, "data", fileName);
-      console.log(filePath);
-      const files = fs.readdirSync(path.join(__dirname, "data"));
-      files.forEach((file) => {
-        console.log(file);
-      });
+      const file = fs
+        .readdirSync(path.join(__dirname, "data"))
+        .filter((x) => x.toLowerCase() == fileName);
+      if (file.length == 0) throw ReferenceError("File Not Found");
+      const filePath = path.join(__dirname, "data", file.pop());
       fs.readFile(filePath, "utf8", (err, data) => {
         if (err) {
           console.log(err);
