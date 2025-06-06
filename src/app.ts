@@ -97,8 +97,10 @@ app.get("/file/:path(*)", (req, res) => {
       if (!directory.file.includes(fileName))
         throw ReferenceError("File Not Found");
       const filePath = path.join(__dirname, "data", fileName);
+      console.log(filePath);
       fs.readFile(filePath, "utf8", (err, data) => {
         if (err) {
+          console.log(err);
           return res.status(500).send("Error reading file");
         }
         res.type("text/markdown"); // Set content type as markdown
