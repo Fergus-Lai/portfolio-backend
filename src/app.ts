@@ -6,6 +6,9 @@ import path from "path";
 import { db } from "./db/db";
 import { messages } from "./db/schema/message";
 import rateLimit from "express-rate-limit";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { desc, count } from "drizzle-orm";
 
 const corsOptions = {
   origin:
@@ -18,6 +21,20 @@ const limiter = rateLimit({
   max: 10, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
   message: "Too many requests from this IP, please try again after 15 minutes",
 });
+
+const auth = (req, res, next) => {
+  const header = req.headers.authorization;
+  if (!header) return res.sendStatus(401);
+
+  const token = header.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch {
+    res.sendStatus(403);
+  }
+};
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -159,6 +176,42 @@ app.post("/contact", async (req, res) => {
   } catch (error) {
     res.status(500).send("Unknown error occurred");
   }
+});
+
+app.post("/admin/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  if (username !== process.env.ADMIN_USERNAME) {
+    res.status(401).json({ message: "Invalid credentials" });
+    return;
+  }
+
+  const isValid = await bcrypt.compare(
+    password,
+    process.env.ADMIN_PASSWORD_HASH
+  );
+  if (!isValid) {
+    res.status(401).json({ message: "Invalid credentials" });
+    return;
+  }
+
+  const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+  res.json({ token });
+});
+
+app.get("/admin/auth/contact/:page", auth, async (req, res) => {
+  const { page } = req.params;
+  let offset = 0;
+  if (!isNaN(Number(page))) offset = Number(page) * 10;
+  const data = await db.query.messages.findMany({
+    limit: 10,
+    offset: offset,
+    orderBy: [desc(messages.created_at)],
+  });
+  const dataCount = await db.select({ count: count() }).from(messages);
+  res.json({ data, nextPage: dataCount[0].count > (Number(page) + 1) * 10 });
 });
 
 app.listen(port, () => {
