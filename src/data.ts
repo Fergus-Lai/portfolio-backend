@@ -13,5 +13,5 @@ export const directoryTree = {
     projects: projects,
     experience: experience,
   },
-  file: [],
+  file: ["aboutme.md"],
 };
