@@ -105,6 +105,7 @@ app.get("/file/:path(*)", (req, res) => {
         res.send(data);
       });
     } catch (error) {
+      console.log(error);
       if (error instanceof RangeError && error.message == "Directory Not Found")
         res.status(404).send("Directory not found");
       else if (
