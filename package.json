@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "build": "set NODE_ENV=production && tsc",
-    "start": "set NODE_ENV=production && node dist/app.js",
+    "start": "set NODE_ENV=production && node dist/src/app.js",
     "dev": "nodemon src/app.ts",
     "db:push": "drizzle-kit push"
   },
